@@ -11,7 +11,7 @@ Examples:
 * [Sprite animated with CSS](http://localhost:5000/sprite_css)
 * [Sprite animated with Canvas](http://localhost:5000/sprite_canvas)
 * [Animated PNG](http://localhost:5000/apng) (https://caniuse.com/?search=apng)
-* [WebM/AV1 - HEVC](http://localhost:5000/video) (https://caniuse.com/?search=webm oder https://caniuse.com/?search=av1 und Fallback Safari: https://caniuse.com/?search=HEVC)
+* [WebM/AV1 - HEVC](http://localhost:5000/video) (https://caniuse.com/?search=webm & https://caniuse.com/?search=av1 and fallback for Safari: https://caniuse.com/?search=HEVC)
 
 ## Time / Frame calculation example
 
@@ -37,6 +37,7 @@ How many frames in one second = 1 / 0.06 = 16.666 frames
 ![APNG](measures/apng.png)
 
 Support: https://caniuse.com/?search=apng
+
 Canvas polyfill for IE11 possible: https://github.com/davidmz/apng-canvas
 
 How to generate the file format:
@@ -65,21 +66,23 @@ WebM:
 ffmpeg -framerate 16.666 -i frames/tile%3d.png -c:v libvpx-vp9 -pix_fmt yuva420p movie.webm
 ```
 
-if no audio is wished, also pass `-an` option.
+if no audio is wished, you can also add the `-an` flag.
 
-For HEVC we first have to create this .mov file:
+For generating the HEVC, we first have to create this .mov file:
 
 ```sh
 ffmpeg -framerate 16.666 -i frames/tile%3d.png -c:v prores_ks -pix_fmt yuva444p10le -alpha_bits 16 -profile:v 4444 -f mov -vframes 150 movie.mov
 ```
 
-Then use "Encode Selected Video Files" on movie.mov file on MacOS >= Catalina finder or use this command:
+Then use right click on movie.mov file on MacOS >= Catalina finder and choose "Encode Selected Video Files":
+
+![Encode Selected Video Files finder option](encode-option.png)
+
+or you can also use the CLI:
 
 ```sh
 avconvert --preset PresetHEVC1920x1080WithAlpha --source source.mov --output output.m4v
 ```
-
-![Encode Selected Video Files finder option](encode-option.png)
 
 ## Sumup / Notable differences
 
