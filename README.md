@@ -10,8 +10,8 @@ Examples:
 
 * [Sprite animated with CSS](http://localhost:5000/sprite_css)
 * [Sprite animated with Canvas](http://localhost:5000/sprite_canvas)
-* [Animated PNG](http://localhost:5000/apng) (https://caniuse.com/?search=apng)
-* [WebM/AV1 - HEVC](http://localhost:5000/video) (https://caniuse.com/?search=webm & https://caniuse.com/?search=av1 and fallback for Safari: https://caniuse.com/?search=HEVC)
+* [Animated PNG](http://localhost:5000/apng)
+* [WebM/AV1 - HEVC](http://localhost:5000/video)
 
 ## Time / Frame calculation example
 
@@ -52,13 +52,9 @@ How to generate the file format:
 
 ![Video](measures/video.png)
 
-Support: WebM (VP9) or AV1 and HEVC as fallback for Safari >= 11 & Mac OS High Sierra
+Support: WebM (VP9) https://caniuse.com/?search=webm or AV1 https://caniuse.com/?search=av1 and HEVC as fallback for Safari >= 11 & Mac OS High Sierra https://caniuse.com/?search=HEVC
 
-https://ffmpeg.org/documentation.html
-https://trac.ffmpeg.org/wiki/Encode/AV1
-https://trac.ffmpeg.org/wiki/Encode/H.265
-
-How to generate the video files:
+How to generate the needed video files:
 
 WebM:
 
@@ -71,17 +67,19 @@ if no audio is wished, you can also add the `-an` flag.
 For generating the HEVC, we first have to create this .mov file:
 
 ```sh
-ffmpeg -framerate 16.666 -i frames/tile%3d.png -c:v prores_ks -pix_fmt yuva444p10le -alpha_bits 16 -profile:v 4444 -f mov -vframes 150 movie.mov
+ffmpeg -framerate 16.666 -i frames/tile%3d.png -c:v prores_ks -pix_fmt yuva444p10le -alpha_bits 16 -profile:v 4444 -f mov -vframes 150 movie-original.mov
 ```
 
-Then use right click on movie.mov file on MacOS >= Catalina finder and choose "Encode Selected Video Files":
+Then use right click on movie.mov file on MacOS >= Catalina finder and choose "Encode Selected Video Files". A dialog should appear where you set "HEVC 1080p" as encoding and enable the "Preserve Transparency" option:
 
 ![Encode Selected Video Files finder option](encode-option.png)
+
+![Encode Selected Video Files finder](encode-media.png)
 
 or you can also use the CLI:
 
 ```sh
-avconvert --preset PresetHEVC1920x1080WithAlpha --source source.mov --output output.m4v
+avconvert --preset PresetHEVC1920x1080WithAlpha --source movie-original.mov --output movie-hevc-encoded.mov
 ```
 
 ## Sumup / Notable differences
@@ -95,3 +93,12 @@ avconvert --preset PresetHEVC1920x1080WithAlpha --source source.mov --output out
 ## Credits
 
 Thanks [@christophdubach](https://github.com/christophdubach) and [@tobiasfrei](https://github.com/tobiasfrei) for proposing ideas and showing pitfalls.
+
+## Sources
+
+* https://kitcross.net/hevc-web-video-alpha-channel/
+* https://evilmartians.com/chronicles/better-web-video-with-av1-codec
+* https://gist.github.com/bbuyukkahraman/3ef92ae522545654d2cbc86fc50650d1
+* https://ffmpeg.org/documentation.html
+* https://trac.ffmpeg.org/wiki/Encode/AV1
+* https://trac.ffmpeg.org/wiki/Encode/H.265
