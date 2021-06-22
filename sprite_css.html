@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CSS Animation</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="css">
+        <div class="css__animation-wrapper"></div>
+        <img class="css__poster" src="frames/tile000.png">
+    </div>
+
+    <script>
+      const animSpriteWrapper = document.querySelector('.css__animation-wrapper');
+      const poster = document.querySelector('.css__poster');
+      const animSpriteImage = new Image();
+
+      animSpriteImage.addEventListener('load', () => {
+        if (animSpriteImage.complete === true) {
+          animSpriteImage.addEventListener('animationstart', () => {
+            poster.classList.add('invisible');
+          });
+
+          animSpriteImage.classList.add(
+            'css__animation',
+            'css__animation--ready',
+            'css__animation--running'
+          );
+
+          animSpriteWrapper.appendChild(animSpriteImage);
+        }
+      });
+
+      animSpriteImage.src = 'sprite.png';
+    </script>
+  </body>
+</html>

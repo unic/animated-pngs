@@ -1,0 +1,14 @@
+{
+  "name": "cookie-animation",
+  "version": "1.0.0",
+  "description": "Test of different animation techniques for a transparent png",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
+}

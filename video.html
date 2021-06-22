@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Video</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <video class="video" id="video" loop muted autoplay playsinline></video>
+    <script>
+        function supportsHEVCAlpha() {
+            const navigator = window.navigator;
+            const ua = navigator.userAgent.toLowerCase()
+            const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
+            const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome')!= -1) && (ua.indexOf('version/')!= -1)))
+            return isSafari && hasMediaCapabilities
+        }
+
+        const video = document.getElementById('video');
+        video.src = supportsHEVCAlpha() ? 'movie-hevc-encoded.mov' : 'movie.webm';
+    </script>
+  </body>
+</html>
